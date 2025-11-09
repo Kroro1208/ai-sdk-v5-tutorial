@@ -1,12 +1,12 @@
 "use client";
 
-import { useChat } from "@ai-sdk/react";
 import Messages from "../components/Messages";
 import { useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
 export default function Home() {
-  const { messages, sendMessage } = useChat();
+  // TODO: ストリーミングチャット用のReact Hookを実装
+
   const [inputText, setInputText] = useState("");
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -14,9 +14,8 @@ export default function Home() {
 
   const submitMessage = async () => {
     if (inputText.trim() === "") return;
-    const text = inputText;
     setInputText("");
-    await sendMessage({ text });
+    // TODO: messagesを送信する処理を実装
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,13 +54,12 @@ export default function Home() {
         className="flex-1 shrink-0 overflow-y-auto pb-4 w-full"
         ref={scrollAreaRef}
       >
-        {/* ここにMessagesコンポーネントを */}
         <Messages messages={messages} messagesEndRef={messagesEndRef} />
       </div>
       <div className="shrink-0 border-t border-zinc-700 bg-black mb-5">
         <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
           <TextareaAutosize
-            placeholder="Type your message..."
+            placeholder="何か質問はありますか？"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}

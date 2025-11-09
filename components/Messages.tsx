@@ -1,10 +1,8 @@
-import { UIMessage } from "ai";
 import { RefObject } from "react";
-import { Streamdown } from "streamdown";
 
 type MessagesProps = {
   messagesEndRef: RefObject<HTMLDivElement | null>;
-  messages: UIMessage[];
+  // TODO: messagesの型を定義
 };
 
 const Messages = ({ messages, messagesEndRef }: MessagesProps) => {
@@ -25,17 +23,15 @@ const Messages = ({ messages, messagesEndRef }: MessagesProps) => {
             }`}
           >
             <div>
-              <strong>{msg.role === "user" ? "あなた" : "AI"}</strong>
+              {/* TODO:  メッセージ送信者を判定して適切な表示名に変換*/}
+              <strong>{"ここに実装"}</strong>
               {msg.parts.map((part, index) => {
                 switch (part.type) {
                   case "text":
                     return (
                       <div key={`${msg.id}-${index}`} className="mt-5">
-                        {msg.role === "user" ? (
-                          <p>{part.text}</p>
-                        ) : (
-                          <Streamdown>{part.text}</Streamdown>
-                        )}
+                        {/* TODO: 送信者がAIの場合はmarkdownで出力して見やすくする */}
+                        <p>{part.text}</p>
                       </div>
                     );
                   // TODO: route.tsで設定した思考プロセスを表示させる実装を追加

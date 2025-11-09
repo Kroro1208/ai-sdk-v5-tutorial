@@ -183,6 +183,7 @@ AI SDK V5では以下のような機能も追加可能です：
 - [Google AI Studio](https://makersuite.google.com/app/apikey)
 - [OpenAI API Keys](https://platform.openai.com/api-keys)
 - [AI Elements](https://ai-sdk.dev/elements)
+- [StreamDown](https://streamdown.ai/)
 
 ## 補足
 
