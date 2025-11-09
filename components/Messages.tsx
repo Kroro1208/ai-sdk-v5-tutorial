@@ -44,6 +44,7 @@ const Messages = ({ messages, messagesEndRef }: MessagesProps) => {
           <div ref={messagesEndRef} />
         </div>
       ))}
+      <div ref={messagesEndRef} />
     </div>
   );
 };

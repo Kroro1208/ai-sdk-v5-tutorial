@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
 
   // TODO: AIに持たせたい振る舞いのプロンプトを考えてみよう
-  const SYSTEM_PROMPT = "";
+  const SYSTEM_PROMPT = ``;
 
   const result = streamText({
     model: google("gemini-2.5-pro"),
