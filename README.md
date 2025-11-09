@@ -192,7 +192,7 @@ AI SDK V5では以下のような機能も追加可能です：
 
 - [Open AI](https://platform.openai.com/api-keys)
 - [Google](https://aistudio.google.com/app/apikey)
-- [API Gateway Key][https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%2Fapi-keys&title=Get%20your%20AI%20Gateway%20key]
+- [API Gateway Key](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%2Fapi-keys&title=Get%20your%20AI%20Gateway%20key)
 
 ### CSSモジュール型エラー解消
 
