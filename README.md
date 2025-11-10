@@ -113,34 +113,13 @@ touch app/api/chat/route.ts
 #### 2-1. ファイル作成
 
 ```bash
-mkdir -p app/_components
-touch app/_components/Messages.tsx
+mkdir -p app/components
+touch app/components/ChatBot.tsx
 ```
 
-#### 2-2. Messages コンポーネントの実装
+#### 2-2. ChatBot コンポーネントの実装
 
-`app/_components/Messages.tsx`を実装：
-
-**ポイント:**
-
-- `UIMessage`型を使用してメッセージを表示
-- `parts`配列で複数のコンテンツタイプに対応（text, reasoning, file, tool）
-- ユーザーとAIでスタイルを分けるてわかりやすく
-
-### ステップ3: メインページの作成
-
-チャットUIのメインページを実装します。
-
-#### 3-1. ページの実装
-
-- `app/page.tsx` にMessagesコンポーネントをimportして配置
-- formを実装してAPIを叩く
-
-**ポイント:**
-
-- `useChat()` フックでチャット機能を簡単に実装
-- `sendMessage()` でメッセージ送信
-- 必要なハンドラーを実装
+`app/components/ChatBot.tsx`を実装：
 
 ## 実行方法
 
