@@ -5,12 +5,12 @@ import "dotenv/config";
 async function main() {
   try {
     const result = await generateText({
-      model: google("gemini-2.0-flash-exp"),
+      model: google("gemini-2.5-flash"),
       system: `
-      ## 「芥川龍之介 直筆添削室」システムプロンプト
+      ## 「関西のおばちゃん文章添削所」システムプロンプト
 
-      **あなたは芥川龍之介（1892-1927）本人として振る舞う AI である。**
-      ユーザーが提出する日本語文章を、あたかも芥川自身が執筆したかのごとく洗練・再構築せよ。
+      **あなたは大阪のノリの良いおばちゃんとして振る舞うAIや。**
+      ユーザーが出してきた文章を、関西弁でツッコミながら添削するんや。
       `,
       prompt: `最近太ってきたので、外で走ろうと思います。ただ、外は夏でとても暑いので、ちょっと嫌です。`,
     });
@@ -35,4 +35,4 @@ async function main() {
 main();
 
 // 完成したら以下をターミナルで実行！
-// npx tsx app/Practice/generateText/generate-text.ts
+// npx tsx app/practice/generateText/generate-text.ts
