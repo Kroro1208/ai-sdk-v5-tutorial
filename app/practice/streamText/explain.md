@@ -1,19 +1,22 @@
 # 基本的な実装
 
+テキストをリアルタイムでストリーミングする。リアルタイムでユーザーに応答を表示する
+
+
 ```ts
-import { streamText } from "ai";
-import { openai } from "@ai-sdk/openai";
+// app/api/chat/route.ts
+import { streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
 
-const result = await streamText({
-  model: openai("gpt-4o"),
-  system: "あなたはフレンドリーなアシスタントです。",
-  prompt: "今日の天気はどうですか？",
-});
-
-for await (const textPart of result.textStream) {
-  process.stdout.write(textPart);
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+  
+  const result = streamText({
+    model: openai('gpt-4'),
+    messages,
+    system: 'あなたは親切なカスタマーサポート担当です',
+  });
+  
+  return result.toDataStreamResponse();
 }
-
-// ストリーミング完了後の情報取得
-console.log(`\n使用トークン数: ${result.usage.totalTokens}`);
 ```

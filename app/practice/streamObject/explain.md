@@ -1,6 +1,8 @@
 # 基本的な実装
 
-`streamObject()` はLLMから構造化されたデータオブジェクトをストリーミング生成するための AI SDK Core関数です。`generateObject()`と同様に zodスキーマを使用してデータの構造を定義しますが、データをリアルタイムでストリーミングできる点が特徴です。
+`streamObject()` はLLMから構造化されたデータオブジェクトをストリーミング生成するための AI SDK Core関数です。<br/>
+`generateObject()`と同様に zodスキーマを使用してデータの構造を定義しますが、データをリアルタイムでストリーミングできる点が特徴です。<br/>
+複数のアイテムを段階的に生成・表示。streamなのでユーザーが待つ間も結果を見せたい時に有効。
 
 ```ts
 import { streamObject } from 'ai';
@@ -20,6 +22,32 @@ const { partialObjectStream } = streamObject({
 
 for await (const partialObject of partialObjectStream) {
   console.log(partialObject); // 段階的に更新されるオブジェクト
+}
+```
+
+```ts
+// app/api/recommend-products/route.ts
+import { streamObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { z } from 'zod';
+
+export async function POST(req: Request) {
+  const { userPreferences } = await req.json();
+  
+  const result = streamObject({
+    model: openai('gpt-4'),
+    schema: z.object({
+      recommendations: z.array(z.object({
+        productName: z.string(),
+        reason: z.string(),
+        price: z.number(),
+        rating: z.number(),
+      })),
+    }),
+    prompt: `ユーザーの好み: ${userPreferences}\n10個の商品をレコメンドしてください`,
+  });
+  
+  return result.toTextStreamResponse();
 }
 ```
 

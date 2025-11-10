@@ -1,6 +1,7 @@
 # 基本的な実装
 
-`generateObject()`LLMから構造化されたデータ（オブジェクト）を生成するためのAI SDK Core関数です。APIレスポンスやデータベースのレコードなど、特定の形式でデータを取得したい場合に使用されます。
+`generateObject()`LLMから構造化されたデータ（オブジェクト）を生成するためのAI SDK Core関数です。<br/>
+ フォームの自動入力/データ抽出に適していて、名刺からの情報抽出、レシート解析、構造化データの生成などに使用
 
 ```ts
 import { generateObject } from 'ai';
@@ -18,6 +19,36 @@ const { object } = await generateObject({
 });
 
 console.log(object); // { name: "太郎", age: 25, hobbies: ["読書", "プログラミング"] }
+```
+
+```ts
+// app/api/extract-receipt/route.ts
+import { generateObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { z } from 'zod';
+
+export async function POST(req: Request) {
+  const { receiptText } = await req.json();
+  
+  const { object } = await generateObject({
+    model: openai('gpt-4'),
+    schema: z.object({
+      storeName: z.string(),
+      date: z.string(),
+      items: z.array(z.object({
+        name: z.string(),
+        price: z.number(),
+        quantity: z.number(),
+      })),
+      total: z.number(),
+      tax: z.number(),
+    }),
+    prompt: `以下のレシート情報から構造化データを抽出してください:\n${receiptText}`,
+  });
+  
+  // objectは型安全で自動補完が効く
+  return Response.json({ receipt: object });
+}
 ```
 
 ## 主な特徴

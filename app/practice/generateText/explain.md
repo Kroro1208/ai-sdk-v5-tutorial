@@ -1,19 +1,24 @@
 # 基本的な実装
 
-`generateText()` はLLMからテキストを一括生成する同期関数です。`streamText()`と異なり、生成が完了するまで待機してから結果を返すため、バッチ処理や自動化タスクに適しています。
+`generateText()` はLLMからテキストを一括生成する同期関数<br/>
+`streamText()`と異なり、生成が完了するまで待機してから結果を返すため、バッチ処理や自動化タスクに適している
 
 ```ts
-import { generateText } from "ai";
-import { openai } from "@ai-sdk/openai";
+// app/api/summarize/route.ts
+import { generateText } from 'ai';
+import { openai } from '@ai-sdk/openai';
 
-const result = await generateText({
-  model: openai("gpt-4o"),
-  system: "あなたはフレンドリーなアシスタントです。",
-  prompt: "今日の天気はどうですか？",
-});
-
-console.log(result.text); // 生成されたテキスト
-console.log(result.usage); // トークン使用量
+export async function POST(req: Request) {
+  const { articleContent } = await req.json();
+  
+  const { text } = await generateText({
+    model: openai('gpt-4'),
+    prompt: `以下の記事を3行で要約してください:\n\n${articleContent}`,
+    maxTokens: 200,
+  });
+  
+  return Response.json({ summary: text });
+}
 ```
 
 ## 主な特徴
