@@ -1,20 +1,22 @@
-import * as React from 'react';
+'use client';
+
 import { cn } from '@/lib/utils';
+import { type ComponentProps, memo } from 'react';
+import { Streamdown } from 'streamdown';
 
-interface ResponseProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-}
+type ResponseProps = ComponentProps<typeof Streamdown>;
 
-const Response = ({ className, children, ...props }: ResponseProps) => {
-  return (
-    <div
-      className={cn('prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap', className)}
+export const Response = memo(
+  ({ className, ...props }: ResponseProps) => (
+    <Streamdown
+      className={cn(
+        'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
+        className,
+      )}
       {...props}
-    >
-      {children}
-    </div>
-  );
-};
-Response.displayName = 'Response';
+    />
+  ),
+  (prevProps, nextProps) => prevProps.children === nextProps.children,
+);
 
-export { Response };
+Response.displayName = 'Response';

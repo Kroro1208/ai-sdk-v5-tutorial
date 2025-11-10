@@ -3,25 +3,21 @@
 `generateObject()`LLMから構造化されたデータ（オブジェクト）を生成するためのAI SDK Core関数です。APIレスポンスやデータベースのレコードなど、特定の形式でデータを取得したい場合に使用されます。
 
 ```ts
-import { generateObject } from "ai";
-import { openai } from "@ai-sdk/openai";
-import { z } from "zod";
+import { generateObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { z } from 'zod';
 
-const schema = z.object({
-  isCorrect: z
-    .boolean()
-    .describe("英文の文法が正しい場合はtrue、間違っている場合はfalse"),
-  fixed: z.string().describe("添削後の正しい英文"),
-  explanation: z
-    .string()
-    .describe("添削内容の詳細説明を日本語で記述してください。"),
+const { object } = await generateObject({
+  model: openai('gpt-4'),
+  schema: z.object({
+    name: z.string(),
+    age: z.number(),
+    hobbies: z.array(z.string()),
+  }),
+  prompt: '架空の人物プロフィールを生成して',
 });
 
-const result = await generateObject({
-  model: openai("gpt-4o"),
-  schema,
-  prompt: `Yester, I go to school.`,
-});
+console.log(object); // { name: "太郎", age: 25, hobbies: ["読書", "プログラミング"] }
 ```
 
 ## 主な特徴
