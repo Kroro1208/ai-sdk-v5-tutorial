@@ -6,19 +6,14 @@ import { z } from "zod";
 async function main() {
   try {
     const schema = z.object({
-      isCorrect: z
-        .boolean()
-        .describe("英文の文法が正しい場合はtrue、間違っている場合はfalse"),
-      fixed: z.string().describe("添削後の正しい英文"),
-      explanation: z
-        .string()
-        .describe("添削内容の詳細説明を日本語で記述してください。"),
+     // TODO: スキーマ定義をここに記述しよう
     });
 
     const result = await streamObject({
       model: google("gemini-2.0-flash-exp"),
       schema,
-      prompt: `Yester, I go to school.`,
+      // TODO: プロンプトをここに記述しよう
+      prompt: ``,
       onError({ error }) {
         console.error("ストリーミングエラー:", error);
       },

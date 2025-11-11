@@ -8,11 +8,14 @@ export async function POST(req: Request) {
   const SYSTEM_PROMPT = ``;
 
   const result = streamText({
-    model: google("gemini-2.5-pro"),
+    model: google("gemini-2.5-flash"),
     system: SYSTEM_PROMPT,
     messages: convertToModelMessages(messages),
-    // TODO: 思考プロセスをレスポンスに含める実装を追加
+    // TODO: goo1gle検索ツールを有効化
+    
   });
 
-  return result.toUIMessageStreamResponse();
+  return result.toUIMessageStreamResponse({
+     // TODO: 思考過程を返すオプションを定義
+  });
 }
