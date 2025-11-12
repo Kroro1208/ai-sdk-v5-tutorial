@@ -4,7 +4,7 @@ import { z } from "zod";
 
 async function main() {
   try {
-    // TODO: 英文を添削するオブジェクトスキーマを定義
+    // TODO: スキーマを定義
     const schema = z.object({
       // ここにスキーマを定義
     });
